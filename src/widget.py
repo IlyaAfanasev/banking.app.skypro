@@ -23,3 +23,13 @@ def get_mask_account_card(account_info: str) -> str:
 
     except FormatError:
         return "Неправильный формат данных"
+
+
+def get_date(unformatted_date: str) -> str:
+    """Функция принимает дату в формате: "2024-03-11T02:26:18.671407",
+    возвращает в формате: "ДД.ММ.ГГГГ"."""
+
+    match = re.search(r"(\d{4})-(\d{2})-(\d{2})", unformatted_date)
+    format_date = f"{match.group(3)}.{match.group(2)}.{match.group(1)}"
+
+    return format_date
