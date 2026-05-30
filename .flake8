@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 119
+ignore = E203, W50
+exclude = src/__init__.py, tests/__init__.py, .git, __pycache__
+max-complexity = 10

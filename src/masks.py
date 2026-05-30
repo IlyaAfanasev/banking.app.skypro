@@ -20,8 +20,7 @@ def get_mask_card_number(card_number: int | str) -> str:
     # возвращаем маску, преобразовывая ее из списка, который получается путем замещения цифр
     # в номере карты звоздочками из шаблона маски при одновременной итерации номера карты и шаблона
     return "".join(
-        "*" if mask_char == "*" else card_char
-        for mask_char, card_char in zip(mask_template, correct_card_number)
+        "*" if mask_char == "*" else card_char for mask_char, card_char in zip(mask_template, correct_card_number)
     )
 
 
