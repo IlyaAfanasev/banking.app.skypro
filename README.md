@@ -37,16 +37,16 @@
   ```
   Вывод:  
   `7000 79** **** 6361`
-- <font color="#218bff">widget.get_mask_account_card(account_info: str) -> str</font> </font> Маскиро номера счета или
+- <font color="#218bff">widget.get_mask_account_card(masking_data: str) -> str</font> </font> Маскиро номера счета или
   карты.  
   Для использования функции передайте в функцию именование передаваемого номера и номер для преобразования в строчном
   виде(str).  
   Это может быть как счет так и карта. Функция вернет именование номера и маску номера в виде: **4567/1234 56\** ****
   7890
   ```
-  def get_mask_account_card(account_info: str) -> str:
+  def get_mask_account_card(masking_data: str) -> str:
       ...
-  accaunt_info = "Счет 73654108430135874305"
+  masking_data = "Счет 73654108430135874305"
   print(get_mask_account_card(accaunt_info))
   ```
   Вывод:  
@@ -61,7 +61,8 @@
   
   print(get_date("2024-03-11T02:26:18.671407"))
   ```
-  Вывод: `11.03.2024`
+  Вывод:  
+  `11.03.2024`
 - <font color="#218bff">(processing.filter_by_state(banking_operations: List[dict], state: str = 'EXECUTED') ->
   List[dict])</font> Функции фильтрации банковских операций по состоянию(state).  
   Для использования функции передайте в функцию список банковских операций(словарей)(List[dict]) и опционально параметр
@@ -85,11 +86,11 @@
 - <font color="#218bff">(processing.sort_by_date(banking_operations: List[dict], rev: bool = False) ->
   List[dict])</font> Сортировки банковских операция по дате.  
   Для использования функции передайте в функцию список банковских операций(словарей)(List[dict]) и опционально параметр
-  rev(revers)(по умолчанию 'True')  
+  reverse(по умолчанию 'True')  
   Фунция вернет отсортированный по дате список банковских операций, по умолчанию по возвастанию. Если нужно
-  отсортировать по убыванию, передайте в фунцию параметр rev со значием('False')
+  отсортировать по убыванию, передайте в фунцию параметр reverse со значием('False')
   ```
-  def sort_by_date(banking_operations: List[dict], rev: bool = True) -> List[dict]:
+  def sort_by_date(banking_operations: List[dict], reverse: bool = True) -> List[dict]:
       ...
   
   
