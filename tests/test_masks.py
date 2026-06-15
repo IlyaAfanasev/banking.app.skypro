@@ -1,6 +1,6 @@
 import pytest
 
-from src.masks import get_mask_card_number
+from src.masks import get_mask_card_number, get_mask_account
 
 
 @pytest.mark.parametrize(
@@ -25,3 +25,27 @@ def test_get_mask_card_number_with_incorrect_length():
 
     with pytest.raises(ValueError):
         get_mask_card_number(15968378687051)
+
+
+@pytest.mark.parametrize(
+    "account, expected",
+    [
+        ("15968378687025785199", "**5199"),
+        ("71583007347256896758", "**6758"),
+    ],
+)
+def test_get_mask_account(account, expected):
+    assert get_mask_account(account) == expected
+
+
+def test_get_mask_account_with_letter_data():
+    with pytest.raises(ValueError):
+        get_mask_account("Счет 15968378687025765199")
+
+
+def test_get_mask_account_with_incorrect_length():
+    with pytest.raises(ValueError):
+        get_mask_account("968378687025765199")
+
+    with pytest.raises(ValueError):
+        get_mask_account(1596837868702576519)
