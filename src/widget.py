@@ -1,7 +1,7 @@
 import re
 from mailbox import FormatError
 
-import masks
+from .masks import get_mask_card_number, get_mask_account
 
 
 def get_mask_account_card(masking_data: str) -> str:
@@ -22,16 +22,16 @@ def get_mask_account_card(masking_data: str) -> str:
     # определяем к какому типу данных относится номер по длине строки и возвращаем маску номера
     try:
         if len(number_info) == 16:
-            return f"{name}{masks.get_mask_card_number(number_info)}"
+            return f"{name}{get_mask_card_number(number_info)}"
 
         elif len(number_info) == 20:
-            return f"{name}{masks.get_mask_account(number_info)}"
+            return f"{name}{get_mask_account(number_info)}"
 
         else:
-            raise FormatError()
+            raise FormatError("Неправильный формат данных")
 
-    except FormatError:
-        return "Неправильный формат данных"
+    except:
+        raise FormatError("Неправильный формат данных")
 
 
 def get_date(unformatted_date: str) -> str:
@@ -39,6 +39,10 @@ def get_date(unformatted_date: str) -> str:
     возвращает в формате: "ДД.ММ.ГГГГ"."""
 
     match = re.search(r"(\d{4})-(\d{2})-(\d{2})", unformatted_date)
-    format_date = f"{match.group(3)}.{match.group(2)}.{match.group(1)}"
+    try:
+        format_date = f"{match.group(3)}.{match.group(2)}.{match.group(1)}"
+    except AttributeError:
+        raise FormatError("Неправильный формат данных")
+
 
     return format_date
