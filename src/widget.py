@@ -1,7 +1,7 @@
 import re
 from mailbox import FormatError
 
-from .masks import get_mask_card_number, get_mask_account
+from .masks import get_mask_account, get_mask_card_number
 
 
 def get_mask_account_card(masking_data: str) -> str:
@@ -30,7 +30,7 @@ def get_mask_account_card(masking_data: str) -> str:
         else:
             raise FormatError("Неправильный формат данных")
 
-    except:
+    except FormatError:
         raise FormatError("Неправильный формат данных")
 
 
@@ -43,6 +43,5 @@ def get_date(unformatted_date: str) -> str:
         format_date = f"{match.group(3)}.{match.group(2)}.{match.group(1)}"
     except AttributeError:
         raise FormatError("Неправильный формат данных")
-
 
     return format_date

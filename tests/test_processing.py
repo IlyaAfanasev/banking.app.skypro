@@ -1,5 +1,4 @@
 from src.processing import filter_by_state, sort_by_date
-from tests.conftest import operations_with_state_enabled, filtered_operations_by_default
 
 
 def test_filter_by_state_with_default_state(banking_operations, operations_by_default_state):

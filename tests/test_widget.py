@@ -2,13 +2,16 @@ from mailbox import FormatError
 
 import pytest
 
-from src.widget import get_mask_account_card, get_date
+from src.widget import get_date, get_mask_account_card
 
 
-@pytest.mark.parametrize("masking_data, expected", [
-    ("Visa Platinum 7000792289606361", "Visa Platinum 7000 79** **** 6361"),
-    ("Счет 64686473678894779589", "Счет **9589")
-])
+@pytest.mark.parametrize(
+    "masking_data, expected",
+    [
+        ("Visa Platinum 7000792289606361", "Visa Platinum 7000 79** **** 6361"),
+        ("Счет 64686473678894779589", "Счет **9589"),
+    ],
+)
 def test_get_mask_account_card(masking_data, expected):
     assert get_mask_account_card(masking_data) == expected
 
