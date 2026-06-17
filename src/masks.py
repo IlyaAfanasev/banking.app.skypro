@@ -1,8 +1,12 @@
 def get_mask_card_number(card_number: int | str) -> str:
     """Функци, возвращает маску номера карты"""
+    if not isinstance(card_number, str):
+        card_number = str(card_number)
+    if not card_number.isdigit() or len(card_number) != 16:
+        raise ValueError("Неправильный формат данных")
 
     # преобразовываем преременную в список из строки символов
-    list_card_number = list(str(card_number))
+    list_card_number = list(card_number)
     correct_card_number = []
     # шаблон маски
     mask_template = "---- --** **** ----"
@@ -26,6 +30,11 @@ def get_mask_card_number(card_number: int | str) -> str:
 
 def get_mask_account(account: int | str) -> str:
     """Функция, возвращает маску номера банковского счета"""
+
+    if not isinstance(account, str):
+        account = str(account)
+    if not account.isdigit() or len(account) != 20:
+        raise ValueError("Неправильный формат данных")
 
     # возвращаем маску номера банковского счета, которая получается путем конкатенации звездочек
     # и среза номера банковского счета
