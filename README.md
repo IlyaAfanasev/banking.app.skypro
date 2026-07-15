@@ -16,7 +16,8 @@
     который поочередно выдает транзакции, где валюта операции соответствует заданной <font color="#218bff">(generators.filter_by_currency)</font>
   - Функция генератора, принимает список словарей с транзакциями и возвращает описание каждой операции по очереди <font color="#218bff">(generators.transaction_descriptions)</font>
   - Функция генератора, выдает номера банковских карт в формате XXXX XXXX XXXX XXXX в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999.
-    Генератор принимает начальное и конечное значения для генерации диапазона номеров <font color="#218bff">(generators.card_number_generator)</font>
+    Генератор принимает начальное и конечное значения для генерации диапазона номеров <font color="#218bff">(generators.card_number_generator)</font>  
+  - Декоратор логирования результатов выполнения функции или ее ошибки. (function_name ok / function_name error_type: текст ошибки. Inputs: (1, 2), {}) <font color="#218bff">(decorators.log )</font> 
 
 ### Использование функций:
 
@@ -285,6 +286,38 @@
     0000 0000 0000 0004
     0000 0000 0000 0005
     ```
+    
+    <font color="#218bff">(decorators.log )</font> Декоратор логирования результатов выполнения функции или ее ошибки с переданными параметрами.  
+    (function_name ok / function_name error_type: текст ошибки. Inputs: (1, 2), {}). Декоратор имеет необязательный параметр имени файла(filename).   
+    Если имя файла передано в декоратор, логи записываются в корень программы в файл под переданным именем. Пример: @log("log.txt").  
+    Декоратор вызывается только со скобками. даже если имя файла не передано.  
+    ```
+    def log(filename: Optional[str] = None) -> Callable[[Callable[P, T]], Callable[P, T]]:
+        ...
+    
+    @log()
+    def positive_func():
+        return True
+    
+    positive_func()
+    ```
+    
+    Запись в лог:
+    ```
+    positive_func ок
+    ```
+    ```
+    @log()
+    def negative_func():
+        raise ValueError("Текст ошибки")
+    
+    negative_func()
+    ```
+    Запись в лог:
+    ```
+    negative_func ValueError: Текст ошибки. Inputs: (), {}
+    ```
+    
 
 ## Тестирование
 
@@ -293,21 +326,22 @@
 ````
 ____ coverage: platform win32, python 3.14.3-final-0 ____ 
 
-
 Name                       Stmts   Miss  Cover
 ----------------------------------------------
-
 src\__init__.py                0      0   100%
+src\decorators.py             23      2    91%
 src\generators.py             14      0   100%
 src\masks.py                  22      0   100%
 src\processing.py              5      0   100%
-src\widget.py                 25      2    92%
+src\widget.py                 24      1    96%
 tests\__init__.py              0      0   100%
 tests\conftest.py             28      0   100%
+tests\test_decorators.py      17      0   100%
 tests\test_generators.py      23      0   100%
 tests\test_masks.py           24      0   100%
 tests\test_processing.py      11      0   100%
 tests\test_widget.py          17      0   100%
 ----------------------------------------------
-TOTAL                        169      2    99%
-==== 26 passed in 0.27s  ===
+TOTAL                        208      3    99%
+
+==== 31 passed in 0.30s   ===
