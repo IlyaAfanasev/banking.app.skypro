@@ -39,9 +39,9 @@ def get_date(unformatted_date: str) -> str:
     возвращает в формате: "ДД.ММ.ГГГГ"."""
 
     match = re.search(r"(\d{4})-(\d{2})-(\d{2})", unformatted_date)
-    try:
+    if match:
         format_date = f"{match.group(3)}.{match.group(2)}.{match.group(1)}"
-    except AttributeError:
+    else:
         raise FormatError("Неправильный формат данных")
 
     return format_date
